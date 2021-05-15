@@ -47,8 +47,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_graph->addSeries(series);
     //-end- Qt_Official_sample:custominput
 
-    //qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
-
     if (!m_graph->hasContext()) {
 
         QMessageBox msgBox;
