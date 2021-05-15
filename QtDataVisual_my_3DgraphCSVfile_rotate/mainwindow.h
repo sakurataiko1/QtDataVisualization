@@ -46,9 +46,6 @@ public:
     void func_GUIdefault();//kuroda GUIフォームの初期化
     //-end- 視点移動
 
-public Q_SLOTS:
-     //void zoomToSelectedBar(); //視点移動　不要かも？ズーム用？
-
 private slots:
     void on_rotationSliderX_valueChanged(int value);
 
@@ -66,8 +63,8 @@ private:
     QPropertyAnimation m_animationCameraTarget;
     float m_defaultAngleX;
     float m_defaultAngleY;
-    float m_defaultZoom; //不要？
-    QVector3D m_defaultTarget;//不要？
+    float m_defaultZoom;
+    QVector3D m_defaultTarget;
 
 };
 #endif // MAINWINDOW_H

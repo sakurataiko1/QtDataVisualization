@@ -13,7 +13,7 @@
 #include <QMessageBox>
 #include <QHBoxLayout>
 
-//-start- Qt_Official_sample:custominput
+//-start- Qt_Official_sample:custominput , bars(視点移動)
 #include <QtDataVisualization/QScatterDataProxy>
 #include <QtDataVisualization/QValue3DAxis>
 #include <QtDataVisualization/Q3DScene>
@@ -24,20 +24,6 @@
 #include <QtCore/QTextStream>
 #include <QtCore/QDebug>
 //-end- Qt_Official_sample:custominput
-
-//-start- Qt_Official_sample:bars
-#include <QtDataVisualization/qcategory3daxis.h>
-#include <QtDataVisualization/qvalue3daxis.h>
-#include <QtDataVisualization/qbardataproxy.h>
-#include <QtDataVisualization/q3dscene.h>
-#include <QtDataVisualization/q3dcamera.h>
-#include <QtDataVisualization/qbar3dseries.h>
-#include <QtDataVisualization/q3dtheme.h>
-#include <QtCore/QTime>
-#include <QtWidgets/QComboBox>
-#include <QtCore/qmath.h>
-//-end- Qt_Official_sample:bars
-
 
 using namespace QtDataVisualization;
 
@@ -208,74 +194,6 @@ void MainWindow::rotateY(int rotation) //3D視点移動
     m_yRotation = rotation;
     m_graph->scene()->activeCamera()->setCameraPosition(m_xRotation, m_yRotation);
 }
-
-////! [11]
-//void MainWindow::zoomToSelectedBar() //不要？　もとの別のズームの処理だけ？
-//{
-//    m_animationCameraX.stop();
-//    m_animationCameraY.stop();
-//    m_animationCameraZoom.stop();
-//    m_animationCameraTarget.stop();
-
-//    Q3DCamera *camera = m_graph->scene()->activeCamera();
-//    float currentX = camera->xRotation();
-//    float currentY = camera->yRotation();
-//    float currentZoom = camera->zoomLevel();
-//    QVector3D currentTarget = camera->target();
-
-//    m_animationCameraX.setStartValue(QVariant::fromValue(currentX));
-//    m_animationCameraY.setStartValue(QVariant::fromValue(currentY));
-//    m_animationCameraZoom.setStartValue(QVariant::fromValue(currentZoom));
-//    m_animationCameraTarget.setStartValue(QVariant::fromValue(currentTarget));
-
-//    QPoint selectedBar = m_graph->selectedSeries()
-//            ? m_graph->selectedSeries()->selectedBar()
-//            : QBar3DSeries::invalidSelectionPosition();
-
-//    if (selectedBar != QBar3DSeries::invalidSelectionPosition()) {
-//        // Normalize selected bar position within axis range to determine target coordinates
-//        //! [13]
-//        QVector3D endTarget;
-//        float xMin = m_graph->columnAxis()->min();
-//        float xRange = m_graph->columnAxis()->max() - xMin;
-//        float zMin = m_graph->rowAxis()->min();
-//        float zRange = m_graph->rowAxis()->max() - zMin;
-//        endTarget.setX((selectedBar.y() - xMin) / xRange * 2.0f - 1.0f);
-//        endTarget.setZ((selectedBar.x() - zMin) / zRange * 2.0f - 1.0f);
-//        //! [13]
-
-//        // Rotate the camera so that it always points approximately to the graph center
-//        //! [15]
-//        qreal endAngleX = 90.0 - qRadiansToDegrees(qAtan(qreal(endTarget.z() / endTarget.x())));
-//        if (endTarget.x() > 0.0f)
-//            endAngleX -= 180.0f;
-//        float barValue = m_graph->selectedSeries()->dataProxy()->itemAt(selectedBar.x(),
-//                                                                        selectedBar.y())->value();
-//        float endAngleY = barValue >= 0.0f ? 30.0f : -30.0f;
-//        if (m_graph->valueAxis()->reversed())
-//            endAngleY *= -1.0f;
-//        //! [15]
-
-//        m_animationCameraX.setEndValue(QVariant::fromValue(float(endAngleX)));
-//        m_animationCameraY.setEndValue(QVariant::fromValue(endAngleY));
-//        m_animationCameraZoom.setEndValue(QVariant::fromValue(250));
-//        //! [14]
-//        m_animationCameraTarget.setEndValue(QVariant::fromValue(endTarget));
-//        //! [14]
-//    } else {
-//        // No selected bar, so return to the default view
-//        m_animationCameraX.setEndValue(QVariant::fromValue(m_defaultAngleX));
-//        m_animationCameraY.setEndValue(QVariant::fromValue(m_defaultAngleY));
-//        m_animationCameraZoom.setEndValue(QVariant::fromValue(m_defaultZoom));
-//        m_animationCameraTarget.setEndValue(QVariant::fromValue(m_defaultTarget));
-//    }
-
-//    m_animationCameraX.start();
-//    m_animationCameraY.start();
-//    m_animationCameraZoom.start();
-//    m_animationCameraTarget.start();
-//}
-////! [11]
 
 void MainWindow::func_GUIdefault() //GUIフォームの初期化
 {
