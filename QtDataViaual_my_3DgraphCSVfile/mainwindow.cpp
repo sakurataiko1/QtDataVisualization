@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 
 //参考：
-//・3D　立方体の自動回転表示　（マウス操作：ズームあり、視点移動なし）
+//・3Dグラフ表示　座標ファイルを読み込んで散布図(scatterとして表示)　（マウス操作：ズームあり、視点移動なし）
 //https://github.com/fengfanchen/Qt/tree/master/3D%20move%20rotation
 //
 //・参考：Qt付属のExampleコード　customplot　（マウス操作：ズームあり、視点移動あり）
