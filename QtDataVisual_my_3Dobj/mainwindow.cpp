@@ -352,17 +352,25 @@ void MainWindow::func_onCheckBox1_3Ddraw_objfile(bool show) //objファイルを
 
 void MainWindow::on_checkBox1_stateChanged(int arg1)
 {
-    func_onCheckBox1_3Ddraw_objfile(true); //objファイル表示
+    //ONの場合 arg1=2, OFFの場合 arg1=0 //qDebug() << "[DEBUG]MainWindow.cpp-on_checkBox1_stateChanged arg1=" << QString::number(arg1);
+    bool flag_draw =false;
+    if(ui->checkBox1->isChecked()){ flag_draw = true; }
+    func_onCheckBox1_3Ddraw_objfile(flag_draw); //objファイル表示
 }
 
 
 void MainWindow::on_checkBox2_stateChanged(int arg1)
 {
-    QString objfilepath = "c:/data/sample_rect.obj";
-    QVector3D tmp_position = QVector3D(37.0f, 20.0f, 20.0f);
-    QColor fillcolor = QColor(255, 255, 0, 128); //黄色
-    int flag_toumei = 1;
-    func_3Ddraw_objfile(objfilepath, tmp_position, fillcolor, flag_toumei);
+    //ONの場合 arg1=2, OFFの場合 arg1=0 //qDebug() << "[DEBUG]MainWindow.cpp-on_checkBox2_stateChanged arg1=" << QString::number(arg1);
+    if(ui->checkBox2->isChecked()){
+        QString objfilepath = "c:/data/sample_rect.obj";
+        QVector3D tmp_position = QVector3D(37.0f, 20.0f, 20.0f);
+        QColor fillcolor = QColor(255, 255, 0, 128); //黄色
+        int flag_toumei = 1;
+        func_3Ddraw_objfile(objfilepath, tmp_position, fillcolor, flag_toumei);
+    } else {
+        //チェックオフの場合,削除処理
+    }
 }
 
 void MainWindow::func_3Ddraw_objfile(QString in_objfilepath, QVector3D in_position, QColor in_color, int flag_toumei ) //objファイルを3D画面に描画する
