@@ -59,15 +59,15 @@ MainWindow::MainWindow(QWidget *parent)
     //-end- 旧scatter(散布図) 3Dグラフ基礎設定
 
     //-start- objfile-custominput
-    m_graph->axisX()->setLabelFormat("%.1f N");
-    m_graph->axisZ()->setLabelFormat("%.1f E");
+    //m_graph->axisX()->setLabelFormat("%.1f N");
+    //m_graph->axisZ()->setLabelFormat("%.1f E");
     m_graph->axisX()->setRange(34.0f, 40.0f);
     m_graph->axisY()->setRange(0.0f, 200.0f);
     m_graph->axisZ()->setRange(18.0f, 24.0f);
     //
-    m_graph->axisX()->setTitle(QStringLiteral("Latitude"));
-    m_graph->axisY()->setTitle(QStringLiteral("Height"));
-    m_graph->axisZ()->setTitle(QStringLiteral("Longitude"));
+    m_graph->axisX()->setTitle(QStringLiteral("X horizontal"));  //Title(QStringLiteral("Latitude"));
+    m_graph->axisY()->setTitle(QStringLiteral("Z vertical"));    //setTitle(QStringLiteral("Height"));
+    m_graph->axisZ()->setTitle(QStringLiteral("Y depth")); //setTitle(QStringLiteral("Longitude"));
     //-end- objfile-custominput
 
     QWidget *container = QWidget::createWindowContainer(m_graph);
@@ -79,11 +79,7 @@ MainWindow::MainWindow(QWidget *parent)
         return;
     }
 
-//    QScatter3DSeries *item = new QScatter3DSeries(); //vox表示の時、必須。
-//    item->setMesh(QAbstract3DSeries::MeshUserDefined); //vox表示の時、必須。
-//    addData(); //csvファイルからデータを読み込んで追加
-
-    //设置到控件上　コントロールに設定→ Widgetに登録、画面で表示されるようになる
+    //コントロールに設定→ Widgetに登録、画面で表示されるようになる
     QHBoxLayout *hLayout = new QHBoxLayout();
     hLayout->addWidget(container, 1);
     ui->widget->setLayout(hLayout);
@@ -203,57 +199,92 @@ void MainWindow::func_GUIdefault() //GUIフォームの初期化
 
 void MainWindow::func_onCheckBox1_3Ddraw_objfile(bool show) //objファイルを3D画面に描画する
 {
-    //流用元: Qt公式サンプルcustominputs　ToggleItemThreeより流用
-    QVector3D positionThree = QVector3D(34.5f, 86.0f, 19.1f);
-    QVector3D positionThreeLabel = QVector3D(34.5f, 116.0f, 19.1f);
+    //流用元: Qt公式サンプルcustominputs　ToggleItemThreeより
+    QVector3D position1 = QVector3D(34.5f, 86.0f, 19.1f); //X=水平, Y=奥行, Z=高さ　通常の座標値
+    QVector3D position1Label = QVector3D(34.5f, 116.0f, 19.1f);
+
+    QVector3D position2 = QVector3D(39.0f, 45.0f, 19.2f);
+    QVector3D position2Label = QVector3D(39.0f, 107.0f, 19.2f);
+
     if (show) {
+        //------------------------------------
+        //objファイル 1つ目
         QImage color = QImage(2, 2, QImage::Format_RGB32);
         color.fill(Qt::darkMagenta);
-        QCustom3DItem *item = new QCustom3DItem();
-        //item->setMeshFile(":/items/refinery.obj");
-        item->setMeshFile("C:/kuroda/work/Qt/qt_my_datavisual_01/QtDataVisual_my_3Dobj/data/refinery.obj");
-        item->setPosition(positionThree);
-        item->setScaling(QVector3D(0.04f, 0.04f, 0.04f));
-        item->setRotation(QQuaternion::fromAxisAndAngle(0.0f, 1.0f, 0.0f, 75.0f));
-        item->setTextureImage(color);
-        item->setShadowCasting(false);
-        m_graph->addCustomItem(item);
+        QCustom3DItem *item1 = new QCustom3DItem();
+        //item1->setMeshFile(":/items/refinery.obj");
+        item1->setMeshFile("C:/kuroda/work/Qt/qt_my_datavisual_01/QtDataVisual_my_3Dobj/data/refinery.obj");
+        item1->setPosition(position1);
+        item1->setScaling(QVector3D(0.04f, 0.04f, 0.04f));
+        item1->setRotation(QQuaternion::fromAxisAndAngle(0.0f, 1.0f, 0.0f, 75.0f));
+        item1->setTextureImage(color);
+        item1->setShadowCasting(false);
+        m_graph->addCustomItem(item1);
 
-        //QImage color = QImage(2, 2, QImage::Format_RGB32);
-        //color.fill(Qt::Green);
+        QCustom3DLabel *label1 = new QCustom3DLabel();
+        label1->setText("Refinery");
+        label1->setPosition(position1Label);
+        label1->setScaling(QVector3D(0.5f, 0.5f, 0.5f));
+        m_graph->addCustomItem(label1);
+
+        //------------------------------------
+        //objファイル 2つ目 oillig と　pipe(繰り返し)
+        //// 2-1 objファイル
         color = QImage(2, 2, QImage::Format_ARGB32); //半透明表示
-        color.fill(QColor(0, 255, 0, 128)); //半透明表示
-        QCustom3DItem *item2 = new QCustom3DItem();
-        //item2->setMeshFile("C:/kuroda/work/Qt/qt_my_datavisual_01/QtDataVisual_my_customitems/sample_plane_02.obj");
-        item2->setMeshFile("C:/kuroda/work/Qt/qt_my_datavisual_01/QtDataVisual_my_3Dobj/data/oilrig.obj");
-        item2->setPosition(positionThree);
-        item2->setScaling(QVector3D(0.05f, 0.05f, 0.05f));
-        item2->setRotation(QQuaternion::fromAxisAndAngle(0.0f, 0.0f, 0.0f, 0.0f)); //(x,y,z,角度degree) xyz中心として角度移動する
-        item2->setTextureImage(color);
+        color.fill(QColor(255, 0, 0, 128)); //赤 半透明表示
+        QString objfilepath = "C:/kuroda/work/Qt/qt_my_datavisual_01/QtDataVisual_my_3Dobj/data/oilrig.obj";
+        QCustom3DItem *item2 = new QCustom3DItem(objfilepath, position2,
+                                                QVector3D(0.025f, 0.025f, 0.025f),
+                                                QQuaternion::fromAxisAndAngle(0.0f, 1.0f, 0.0f, 45.0f),
+                                                color);
+        item2->setShadowCasting(false);
+
+        //// 2-2 objファイル　pipe(繰り返し　縦積み)
+        color = QImage(2, 2, QImage::Format_RGB32);
+        color.fill(Qt::green);
+        m_graph->addCustomItem(item2);
+        objfilepath = "C:/kuroda/work/Qt/qt_my_datavisual_01/QtDataVisual_my_3Dobj/data/pipe.obj";
+        item2 = new QCustom3DItem(objfilepath, position2,
+                                 QVector3D(0.005f, 0.5f, 0.005f),
+                                 QQuaternion(),
+                                 color);
         item2->setShadowCasting(false);
         m_graph->addCustomItem(item2);
 
-//        color = QImage(2, 2, QImage::Format_RGB32);
-//        color.fill(Qt::blue);
-//        QCustom3DItem *item3 = new QCustom3DItem();
-//        item3->setMeshFile("C:/kuroda/work/Qt/qt_my_datavisual_01/QtDataVisual_my_customitems/sample_plane_bottom.obj");
-//        item3->setPosition(positionThree);
-//        item3->setScaling(QVector3D(0.05f, 0.05f, 0.05f));
-//        item3->setRotation(QQuaternion::fromAxisAndAngle(0.0f, 0.0f, 0.0f, 0.0f)); //(x,y,z,角度degree) xyz中心として角度移動する
-//        item3->setTextureImage(color);
-//        item3->setShadowCasting(false);
-//        m_graph->addCustomItem(item3);
+        QCustom3DLabel *label2 = new QCustom3DLabel();
+        label2->setText("object 2-1:oilrig and 2-2:pipe-multiHight");
+        label2->setPosition(position2Label);
+        label2->setScaling(QVector3D(0.5f, 0.5f, 0.5f));
+        m_graph->addCustomItem(label2);
 
+        //------------------------------------
+        //objファイル 3つ目
+        objfilepath = "C:/kuroda/work/Qt/qt_my_datavisual_01/QtDataVisual_my_3Dobj/data/sample_cube.obj";
+        QVector3D tmp_position = QVector3D(37.0f, 80.0f, 20.0f);
+        QColor fillcolor = QColor(0, 0, 255, 255); //青
+        int flag_toumei = 0;
+        func_3Ddraw_objfile(objfilepath, tmp_position, fillcolor, flag_toumei);
 
-        QCustom3DLabel *label = new QCustom3DLabel();
-        label->setText("Refinery");
-        label->setPosition(positionThreeLabel);
-        label->setScaling(QVector3D(0.5f, 0.5f, 0.5f));
-        m_graph->addCustomItem(label);
+        //------------------------------------
+        //objファイル 4つ目
+        objfilepath = "C:/kuroda/work/Qt/qt_my_datavisual_01/QtDataVisual_my_3Dobj/data/sample_rect.obj";
+        tmp_position = QVector3D(37.0f, 20.0f, 20.0f);
+        fillcolor = QColor(255, 255, 0, 128); //黄色
+        flag_toumei = 1;
+        func_3Ddraw_objfile(objfilepath, tmp_position, fillcolor, flag_toumei);
+
     } else {
+        //position1, 2すらアイテム削除ができてない。
+        //下記記述では　position1, 2だけ削除。　position3以上が対応できていないのでこれから考える。
         //resetSelection();
-        m_graph->removeCustomItemAt(positionThree);
-        m_graph->removeCustomItemAt(positionThreeLabel);
+        qDebug() << "[DEBUG]01 MainWindow.cpp-func_onCheckBox1_3Ddraw_objfile ";
+
+        m_graph->removeCustomItemAt(position1);
+        m_graph->removeCustomItemAt(position1Label);
+
+        m_graph->removeCustomItemAt(position2);
+        m_graph->removeCustomItemAt(position2Label);
+        update();
     }
 }
 
@@ -322,4 +353,23 @@ void MainWindow::func_onCheckBox1_3Ddraw_objfile(bool show) //objファイルを
 void MainWindow::on_checkBox1_stateChanged(int arg1)
 {
     func_onCheckBox1_3Ddraw_objfile(true); //objファイル表示
+}
+
+
+void MainWindow::func_3Ddraw_objfile(QString in_objfilepath, QVector3D in_position, QColor in_color, int flag_toumei ) //objファイルを3D画面に描画する
+{
+    QVector3D position1 = in_position; //例：QVector3D(34.5f, 86.0f, 19.1f); //X=水平, Y=奥行, Z=高さ　通常の座標値
+    QImage color = QImage(2, 2, QImage::Format_RGB32);
+    if(flag_toumei == 1){ QImage color = QImage(2, 2, QImage::Format_ARGB32); }
+    color.fill(in_color);
+    QCustom3DItem *item1 = new QCustom3DItem();
+    //item1->setMeshFile(":/items/refinery.obj");
+    item1->setMeshFile(in_objfilepath); //例：　"C:/tmp/refinery.obj"
+    item1->setPosition(position1);
+    item1->setScaling(QVector3D(0.05f, 0.05f, 0.05f)); //描画対象のサイズ(倍率?)
+    item1->setRotation(QQuaternion::fromAxisAndAngle(0.0f, 0.0f, 0.0f, 0.0f)); //回転無し //(x,y,z,角度degree):xyz中心として角度移動する
+    item1->setTextureImage(color);
+    item1->setShadowCasting(false);
+    m_graph->addCustomItem(item1);
+
 }

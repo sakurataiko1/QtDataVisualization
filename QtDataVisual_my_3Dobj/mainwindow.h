@@ -55,6 +55,7 @@ public:
     //-end- 視点移動
 
     void func_onCheckBox1_3Ddraw_objfile(bool show); //3D描画でobjファイル描画
+    void func_3Ddraw_objfile(QString in_objfilepath, QVector3D in_position, QColor in_color, int flag_toumei ); //objファイルを3D画面に描画する
 
 private slots:
     void on_rotationSliderX_valueChanged(int value); //視点移動
