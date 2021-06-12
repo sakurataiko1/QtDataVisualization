@@ -213,7 +213,7 @@ void MainWindow::func_onCheckBox1_3Ddraw_objfile(bool show) //objファイルを
         color.fill(Qt::darkMagenta);
         QCustom3DItem *item1 = new QCustom3DItem();
         //item1->setMeshFile(":/items/refinery.obj");
-        item1->setMeshFile("C:/kuroda/work/Qt/qt_my_datavisual_01/QtDataVisual_my_3Dobj/data/refinery.obj");
+        item1->setMeshFile("c://data/refinery.obj");
         item1->setPosition(position1);
         item1->setScaling(QVector3D(0.04f, 0.04f, 0.04f));
         item1->setRotation(QQuaternion::fromAxisAndAngle(0.0f, 1.0f, 0.0f, 75.0f));
@@ -232,7 +232,7 @@ void MainWindow::func_onCheckBox1_3Ddraw_objfile(bool show) //objファイルを
         //// 2-1 objファイル
         color = QImage(2, 2, QImage::Format_ARGB32); //半透明表示
         color.fill(QColor(255, 0, 0, 128)); //赤 半透明表示
-        QString objfilepath = "C:/kuroda/work/Qt/qt_my_datavisual_01/QtDataVisual_my_3Dobj/data/oilrig.obj";
+        QString objfilepath = "c://data/oilrig.obj";
         QCustom3DItem *item2 = new QCustom3DItem(objfilepath, position2,
                                                 QVector3D(0.025f, 0.025f, 0.025f),
                                                 QQuaternion::fromAxisAndAngle(0.0f, 1.0f, 0.0f, 45.0f),
@@ -243,7 +243,7 @@ void MainWindow::func_onCheckBox1_3Ddraw_objfile(bool show) //objファイルを
         color = QImage(2, 2, QImage::Format_RGB32);
         color.fill(Qt::green);
         m_graph->addCustomItem(item2);
-        objfilepath = "C:/kuroda/work/Qt/qt_my_datavisual_01/QtDataVisual_my_3Dobj/data/pipe.obj";
+        objfilepath = "c://data/pipe.obj";
         item2 = new QCustom3DItem(objfilepath, position2,
                                  QVector3D(0.005f, 0.5f, 0.005f),
                                  QQuaternion(),
@@ -259,7 +259,7 @@ void MainWindow::func_onCheckBox1_3Ddraw_objfile(bool show) //objファイルを
 
         //------------------------------------
         //objファイル 3つ目
-        objfilepath = "C:/kuroda/work/Qt/qt_my_datavisual_01/QtDataVisual_my_3Dobj/data/sample_cube.obj";
+        objfilepath = "c://data/sample_cube.obj";
         QVector3D tmp_position = QVector3D(37.0f, 80.0f, 20.0f);
         QColor fillcolor = QColor(0, 0, 255, 255); //青
         int flag_toumei = 0;
@@ -267,7 +267,7 @@ void MainWindow::func_onCheckBox1_3Ddraw_objfile(bool show) //objファイルを
 
         //------------------------------------
         //objファイル 4つ目
-        objfilepath = "C:/kuroda/work/Qt/qt_my_datavisual_01/QtDataVisual_my_3Dobj/data/sample_rect.obj";
+        objfilepath = "c://data/sample_rect.obj";
         tmp_position = QVector3D(37.0f, 20.0f, 20.0f);
         fillcolor = QColor(255, 255, 0, 128); //黄色
         flag_toumei = 1;
