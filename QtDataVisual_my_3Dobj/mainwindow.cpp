@@ -213,7 +213,7 @@ void MainWindow::func_onCheckBox1_3Ddraw_objfile(bool show) //objファイルを
         color.fill(Qt::darkMagenta);
         QCustom3DItem *item1 = new QCustom3DItem();
         //item1->setMeshFile(":/items/refinery.obj");
-        item1->setMeshFile("c://data/refinery.obj");
+        item1->setMeshFile("c:/data/refinery.obj");
         item1->setPosition(position1);
         item1->setScaling(QVector3D(0.04f, 0.04f, 0.04f));
         item1->setRotation(QQuaternion::fromAxisAndAngle(0.0f, 1.0f, 0.0f, 75.0f));
@@ -232,7 +232,7 @@ void MainWindow::func_onCheckBox1_3Ddraw_objfile(bool show) //objファイルを
         //// 2-1 objファイル
         color = QImage(2, 2, QImage::Format_ARGB32); //半透明表示
         color.fill(QColor(255, 0, 0, 128)); //赤 半透明表示
-        QString objfilepath = "c://data/oilrig.obj";
+        QString objfilepath = "c:/data/oilrig.obj";
         QCustom3DItem *item2 = new QCustom3DItem(objfilepath, position2,
                                                 QVector3D(0.025f, 0.025f, 0.025f),
                                                 QQuaternion::fromAxisAndAngle(0.0f, 1.0f, 0.0f, 45.0f),
@@ -243,7 +243,7 @@ void MainWindow::func_onCheckBox1_3Ddraw_objfile(bool show) //objファイルを
         color = QImage(2, 2, QImage::Format_RGB32);
         color.fill(Qt::green);
         m_graph->addCustomItem(item2);
-        objfilepath = "c://data/pipe.obj";
+        objfilepath = "c:/data/pipe.obj";
         item2 = new QCustom3DItem(objfilepath, position2,
                                  QVector3D(0.005f, 0.5f, 0.005f),
                                  QQuaternion(),
@@ -259,19 +259,19 @@ void MainWindow::func_onCheckBox1_3Ddraw_objfile(bool show) //objファイルを
 
         //------------------------------------
         //objファイル 3つ目
-        objfilepath = "c://data/sample_cube.obj";
+        objfilepath = "c:/data/sample_cube.obj";
         QVector3D tmp_position = QVector3D(37.0f, 80.0f, 20.0f);
         QColor fillcolor = QColor(0, 0, 255, 255); //青
         int flag_toumei = 0;
         func_3Ddraw_objfile(objfilepath, tmp_position, fillcolor, flag_toumei);
 
         //------------------------------------
-        //objファイル 4つ目
-        objfilepath = "c://data/sample_rect.obj";
-        tmp_position = QVector3D(37.0f, 20.0f, 20.0f);
-        fillcolor = QColor(255, 255, 0, 128); //黄色
-        flag_toumei = 1;
-        func_3Ddraw_objfile(objfilepath, tmp_position, fillcolor, flag_toumei);
+        ////objファイル 4つ目
+        //objfilepath = "c:/data/sample_rect.obj";
+        //tmp_position = QVector3D(37.0f, 20.0f, 20.0f);
+        //fillcolor = QColor(255, 255, 0, 128); //黄色
+        //flag_toumei = 1;
+        //func_3Ddraw_objfile(objfilepath, tmp_position, fillcolor, flag_toumei);
 
     } else {
         //position1, 2すらアイテム削除ができてない。
@@ -356,6 +356,15 @@ void MainWindow::on_checkBox1_stateChanged(int arg1)
 }
 
 
+void MainWindow::on_checkBox2_stateChanged(int arg1)
+{
+    QString objfilepath = "c:/data/sample_rect.obj";
+    QVector3D tmp_position = QVector3D(37.0f, 20.0f, 20.0f);
+    QColor fillcolor = QColor(255, 255, 0, 128); //黄色
+    int flag_toumei = 1;
+    func_3Ddraw_objfile(objfilepath, tmp_position, fillcolor, flag_toumei);
+}
+
 void MainWindow::func_3Ddraw_objfile(QString in_objfilepath, QVector3D in_position, QColor in_color, int flag_toumei ) //objファイルを3D画面に描画する
 {
     QVector3D position1 = in_position; //例：QVector3D(34.5f, 86.0f, 19.1f); //X=水平, Y=奥行, Z=高さ　通常の座標値
@@ -364,7 +373,7 @@ void MainWindow::func_3Ddraw_objfile(QString in_objfilepath, QVector3D in_positi
     color.fill(in_color);
     QCustom3DItem *item1 = new QCustom3DItem();
     //item1->setMeshFile(":/items/refinery.obj");
-    item1->setMeshFile(in_objfilepath); //例：　"C:/tmp/refinery.obj"
+    item1->setMeshFile(in_objfilepath); //例：　"c:/tmp/refinery.obj"
     item1->setPosition(position1);
     item1->setScaling(QVector3D(0.05f, 0.05f, 0.05f)); //描画対象のサイズ(倍率?)
     item1->setRotation(QQuaternion::fromAxisAndAngle(0.0f, 0.0f, 0.0f, 0.0f)); //回転無し //(x,y,z,角度degree):xyz中心として角度移動する
@@ -373,3 +382,4 @@ void MainWindow::func_3Ddraw_objfile(QString in_objfilepath, QVector3D in_positi
     m_graph->addCustomItem(item1);
 
 }
+
