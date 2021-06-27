@@ -205,11 +205,28 @@ void SurfaceGraph::fillSqrtSinProxy()
     //-end- kuroda04   =======================================
 
     //-start- kuroda05  関数化 表示OK 単体 2つ目のサーフェスとして追加する 動作OK =
-    //2つ目 OK
-    func_addsurface(QVector3D(-7.0f, 0.1f, 0.5f) , QVector3D(-3.0f, 0.5f, 0.5f),  QVector3D(-7.0f, 1.8f, 1.0f) , QVector3D(-3.0f, 1.2f, 1.0f));
+    //2-1 OK Front/Back (水平, 高さ, 奥行=手前がマイナス)
+    func_addsurface(QVector3D(-7.0f, 0.5f, 0.6f) , QVector3D(-3.0f, 0.5f, 0.6f),
+                    QVector3D(-7.0f, 1.0f, 0.6f) , QVector3D(-3.0f, 1.0f, 0.6f));
+
+    //2-2 Right / Left (水平, 高さ, 奥行=手前がマイナス)
+    func_addsurface(QVector3D(1.0f, 0.1f, -2.0f) , QVector3D(2.0f, 0.1f, -2.0f),
+                    QVector3D(1.0f, 0.5f, 1.0f) , QVector3D(2.0f, 0.5f, 1.0f));
+
+
+    //2-3 OK Bottom/Top (水平, 高さ, 奥行=手前がマイナス)
+    func_addsurface(QVector3D(4.0f, 0.1f, -5.0f) , QVector3D(7.0f, 0.1f, -5.0f),
+                    QVector3D(4.0f, 0.2f, -8.0f) , QVector3D(7.0f, 0.2f, -8.0f));
+
+
+    //2-3 OK Bottom/Top
+    //func_addsurface(QVector3D(-7.0f, 0.6f, 0.1f) , QVector3D(-3.0f, 0.6f, 0.1f),
+    //                QVector3D(-7.0f, 0.6f, 0.5f) , QVector3D(-3.0f, 0.6f, 0.5f));
+
 
     //3つ目　OK
-    func_addsurface(QVector3D(-2.0f, 0.1f, 0.5f) , QVector3D(1.0f, 0.5f, 0.5f),  QVector3D(-2.0f, 1.8f, 1.0f) , QVector3D(1.0f, 1.2f, 1.0f));
+    //func_addsurface(QVector3D(-2.0f, 0.1f, 0.5f) , QVector3D(1.0f, 0.5f, 0.5f),
+    //                QVector3D(-2.0f, 1.8f, 1.0f) , QVector3D(1.0f, 1.2f, 1.0f));
 
     //1000個までは動作した　目視確認はできてないけど。。 1万個はだめかも
     //for(int i=0; i<10000; i++){
